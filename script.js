@@ -3,37 +3,40 @@ var d3
 var mData = "https://raw.githubusercontent.com/puikeicheng/HowRandom/master/seqFreq.csv";
 d3.csv(mData, function(data) {
   /* ----- Pre-process data ----- */
-  Digi_Count('#DigitCount', data);
+  Digit_Count('#DigitCount', data);
 });
 
-function Digi_Count(id, data){
-}
-
-function Line_Pie(id, data){
+function Digit_Count(id, data){
 
   var dData =  d3.nest()
                   .key(function(d) {return d.digit; })
-                  .entries(data);
+                  .key(function(d) {return d.set; })
+                  .rollup(function(v) {return d3.sum(v, function(d) {return d.freq; });})
+                  .entries(data)
+                  .map(function(group) {
+                    return {
+                      digit: group.key,
+                      set: {freq1: group.values[0].value,
+                            freq2: group.values[1].value}
+                    }
+                  });
+  console.log(dData)
 
   // calculate total waste by segment for all dates
-  dData.forEach(function(d){d.total = d.freq.freq1 + d.freq.freq2,
+  dData.forEach(function(d){d.total = d.set.freq1 + d.set.freq2,
                             d.mean  = d.total/2});
 
-  // compute total for each date
-  var tF = ['Sup1','Sup2'].map(function(d){
-      return {type:d, freq: d3.mean(dData.map(function(t){return t.Facility[d];}))};
-  });
   // calculate total waste by date for all segments
-  var sF = dData.map(function(d){return [d.freq,d.total];});
+  var sF = dData.map(function(d){return [d.set,d.total];});
 
   // colors
   var barColor = 'DarkGray';
   function segColor(c){ return {freq1:"DarkGreen", freq2:"SteelBlue"}[c]; }
 
   // Create and update subplots
-  var hG  = histoGram(sF), // create the histogram
-      pC  = pieChart(tF), // create the pie-chart
-      leg = legend(tF);  // create the legend
+  var hG  = histoGram(sF); // create the histogram
+      // pC  = pieChart(tF), // create the pie-chart
+      // leg = legend(tF);  // create the legend
 
   /* -------------- Plot functions -------------- */
   // function to handle histogram
