@@ -27,7 +27,7 @@ function Digit_Count(id, data){
                             d.mean  = d.total/2});
 
   // calculate total waste by date for all segments
-  var sF = dData.map(function(d){return [d.set,d.total];});
+  var sF = dData.map(function(d){return [d.digit,d.total];});
 
   // colors
   var barColor = 'DarkGray';
@@ -80,8 +80,8 @@ function Digit_Count(id, data){
                 .attr("width", barwidth)
                 .attr("height", function(d) { return hGDim.h - yScale(d[1]); })
                 .attr('fill',barColor)
-                .on("mouseover",mouseover)// mouseover is defined below.
-                .on("mouseout",mouseout);// mouseout is defined below.
+                // .on("mouseover",mouseover)// mouseover is defined below.
+                // .on("mouseout",mouseout);// mouseout is defined below.
 
     //Create the waste labels above the rectangles.
     bars.append("text").text(function(d){ return d3.format(",")(d[1])})
@@ -100,7 +100,7 @@ function Digit_Count(id, data){
     function mouseover(d){  // utility function to be called on mouseover.
         // filter for selected date.
         var st = dData.filter(function(s){ return s.digit == d[0];})[0],
-            nD = d3.keys(st.freq).map(function(s){ return {type:s, digit:st.digit[s]};});
+            nD = d3.keys(st.set).map(function(s){ return {type:s, set:st.set[s]};});
 
         // call update functions of pie-chart and legend.
         pC.update(nD);
