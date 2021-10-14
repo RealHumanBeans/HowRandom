@@ -1,0 +1,71 @@
+body {
+  background-color: #F9F9F9;
+  font-family: "Segoe UI",Arial,sans-serif;
+  padding: 50px;
+}
+h1 {
+  font-family: "Segoe UI",Arial,sans-serif;
+  font-size: 1.5em;
+}
+h4 {
+  font-family: "Segoe UI",Arial,sans-serif;
+  font-size: 1em;
+}
+svg {
+  overflow: visible;
+  margin: 10px 10px;
+}
+
+.plotline {
+    fill: none;
+    stroke: Black;
+    stroke-width: 1.25px;
+    shape-rendering: crispEdges;
+    opacity: 0.5;
+  }
+
+.ticks path {
+  fill: none;
+  stroke: DarkGray;
+  opacity: 0.5;
+}
+.ticks line {
+  fill: none;
+  stroke: DarkGray;
+  opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+.ticks text {
+  font-size: 1.5em;
+  font: 14px arial;
+  text-align: center;
+}
+
+.toolTip {
+  position: absolute;
+  display: none;
+  max-width: 70px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 5px;
+  text-align: center;
+  font-size: .75em;
+}
+
+.legend{
+    margin-bottom:40px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+.legend td{
+    padding:4px 5px;
+    vertical-align:middle;
+}
+.legendFreq, .legendPerc{
+    align:middle;
+    width:50px;
+}
+.legend tr{    border-bottom:1px solid grey; }
+.legend tr:first-child{    border-top:1px solid grey; }
